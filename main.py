@@ -28,6 +28,8 @@ def validate(text):
     size = len(text)
     if size < 1 or size > 60:
         raise ValueError("story is %d characters, gate needs 1-60" % size)
+    if any(ord(ch) < 32 or ord(ch) == 127 for ch in text):
+        raise ValueError("story holds a control character")
     words = text.split()
     if len(words) != 6:
         raise ValueError("story has %d words, gate needs exactly 6" % len(words))
